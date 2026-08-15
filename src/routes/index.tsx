@@ -503,9 +503,13 @@ function Audit() {
                   <option value="" disabled>
                     Sélectionnez…
                   </option>
-                  <option value="impots">Impôts</option>
+                  <option value="fiscalite">Fiscalité</option>
                   <option value="retraite">Retraite</option>
-                  <option value="immobilier">Immobilier</option>
+                  <option value="credit-immobilier">Crédit immobilier</option>
+                  <option value="placement-financier">Placement financier</option>
+                  <option value="assurance-emprunteur">
+                    Renégociation Assurance emprunteur
+                  </option>
                   <option value="autre">Autre</option>
                 </select>
                 {errors["projet"] && (
