@@ -563,7 +563,7 @@ function Footer() {
           <p>
             Lamyae Ayoub — Mandataire en assurance et intermédiaire en opérations de banque et
             services de paiement, partenaire de Predictis (Groupe Premium). Activité de courtage
-            enregistrée à l'ORIAS — n° ORIAS : à compléter (
+            enregistrée à l'ORIAS — n° ORIAS : 26000052 (
             <a
               href="https://www.orias.fr"
               target="_blank"
@@ -573,10 +573,6 @@ function Footer() {
               www.orias.fr
             </a>
             ).
-          </p>
-          <p>
-            Les informations présentées ne constituent pas un conseil en investissement. Tout
-            placement présente un risque de perte en capital.
           </p>
           <p>© {new Date().getFullYear()} Lamyae Ayoub — Tous droits réservés.</p>
         </div>
