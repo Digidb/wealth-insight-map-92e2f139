@@ -544,6 +544,14 @@ function Footer() {
               <span className="font-display text-lg text-navy-deep">Lamyae Ayoub</span>
               <span className="eyebrow text-muted-foreground">Gestion de patrimoine</span>
             </span>
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center rounded-xl bg-navy-deep px-4 py-3">
+              <img
+                src={logo.url}
+                alt="Logo Lamyae Ayoub"
+                className="h-9 w-auto mix-blend-screen"
+              />
+            </span>
           </div>
           <nav className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted-foreground">
             <a href="#objectifs" className="hover:text-navy-deep">
