@@ -142,13 +142,11 @@ function Header() {
     <header className="absolute inset-x-0 top-0 z-20">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
         <div className="flex items-center gap-3">
-          <span className="grid h-12 w-12 place-items-center rounded-full bg-card shadow-[var(--shadow-card)]">
-            <img src={logo.url} alt="Logo LA Gestion de patrimoine" className="h-9 w-9 object-contain" />
-          </span>
-          <span className="hidden flex-col leading-tight text-primary-foreground sm:flex">
-            <span className="font-display text-lg">Lamyae Ayoub</span>
-            <span className="eyebrow opacity-70">Gestion de patrimoine</span>
-          </span>
+          <img
+            src={logo.url}
+            alt="Logo Lamyae Ayoub — Gestion de patrimoine"
+            className="h-10 w-auto mix-blend-screen sm:h-12"
+          />
         </div>
         <a
           href={CTA_HREF}
