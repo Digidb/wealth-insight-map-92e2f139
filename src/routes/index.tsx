@@ -80,7 +80,7 @@ const solutions = [
     label: "Bloc 1",
     title: "Immobilier & Financement",
     items: [
-      "Défiscalisation : Pinel, Malraux, Monuments Historiques",
+      "Défiscalisation immobilière",
       "Recherche de biens neufs et financement",
       "Négociation et regroupement de crédits, assurance emprunteur",
     ],
@@ -92,6 +92,7 @@ const solutions = [
     items: [
       "Assurance vie en gestion privée",
       "PER — épargne retraite",
+      "SCPI — immobilier de rendement",
       "Contrat de CAPI (trésorerie d'entreprise)",
     ],
   },
