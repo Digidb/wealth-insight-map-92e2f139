@@ -159,6 +159,41 @@ function Header() {
   );
 }
 
+const partners = [
+  { src: abeilleLogo.url, name: "Abeille Assurances" },
+  { src: swisslifeLogo.url, name: "Swiss Life" },
+  { src: groupamaLogo.url, name: "Groupama" },
+  { src: ag2rLogo.url, name: "AG2R La Mondiale" },
+  { src: groupePremiumLogo.url, name: "Groupe Premium" },
+];
+
+function PartnersMarquee() {
+  return (
+    <div className="rounded-2xl border border-[oklch(1_0_0/0.16)] bg-[oklch(1_0_0/0.07)] p-5 backdrop-blur">
+      <span className="eyebrow px-1 text-primary-foreground opacity-70">
+        Nos compagnies partenaires
+      </span>
+      <div className="group relative mt-4 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
+        <div className="marquee-track flex w-max items-center gap-4 group-hover:[animation-play-state:paused]">
+          {[...partners, ...partners].map((p, i) => (
+            <div
+              key={`${p.name}-${i}`}
+              className="grid h-20 w-40 shrink-0 place-items-center rounded-xl bg-card px-5"
+            >
+              <img
+                src={p.src}
+                alt={p.name}
+                loading="lazy"
+                className="max-h-12 w-auto object-contain"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Hero() {
   return (
     <section className="relative px-4 pt-4">
