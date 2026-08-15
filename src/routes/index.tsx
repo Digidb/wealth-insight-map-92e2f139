@@ -539,16 +539,10 @@ function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-14">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div className="flex items-center gap-3">
-            <img src={logo.url} alt="Logo LA" className="h-12 w-12 object-contain" />
-            <span className="flex flex-col leading-tight">
-              <span className="font-display text-lg text-navy-deep">Lamyae Ayoub</span>
-              <span className="eyebrow text-muted-foreground">Gestion de patrimoine</span>
-            </span>
-          <div className="flex items-center gap-3">
             <span className="inline-flex items-center rounded-xl bg-navy-deep px-4 py-3">
               <img
                 src={logo.url}
-                alt="Logo Lamyae Ayoub"
+                alt="Logo Lamyae Ayoub — Gestion de patrimoine"
                 className="h-9 w-auto mix-blend-screen"
               />
             </span>
