@@ -170,7 +170,7 @@ const partners = [
 
 function PartnersMarquee() {
   return (
-    <div className="rounded-2xl border border-[oklch(1_0_0/0.16)] bg-[oklch(1_0_0/0.07)] p-5 backdrop-blur">
+    <div className="min-w-0 rounded-2xl border border-[oklch(1_0_0/0.16)] bg-[oklch(1_0_0/0.07)] p-5 backdrop-blur">
       <span className="eyebrow px-1 text-primary-foreground opacity-70">
         Nos compagnies partenaires
       </span>
