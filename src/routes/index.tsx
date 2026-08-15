@@ -581,10 +581,62 @@ function Footer() {
   );
 }
 
+function Temoignages() {
+  const items = [
+    {
+      name: "Dr. Karim Benali",
+      role: "Chirurgien-dentiste, Lyon",
+      text: "Un accompagnement d'une clarté rare. Ma fiscalité est enfin optimisée et mon épargne retraite structurée sereinement.",
+    },
+    {
+      name: "Pr. Hélène Marchand",
+      role: "Professeure des universités, Paris",
+      text: "Une analyse à 360° très pédagogue. J'ai compris chaque décision avant de la prendre, sans aucune pression commerciale.",
+    },
+    {
+      name: "M. Antoine Rivière",
+      role: "Chef d'entreprise, Bordeaux",
+      text: "Renégociation de mon assurance emprunteur et trésorerie d'entreprise placée : un gain concret dès la première année.",
+    },
+    {
+      name: "Mme Sophie Delcourt",
+      role: "Cadre dirigeante, Nantes",
+      text: "Prévoyance et transmission enfin en ordre. Confiance totale, réactivité et transparence à chaque échange.",
+    },
+  ];
+
+  return (
+    <section id="temoignages" className="mx-auto max-w-7xl px-6 py-24">
+      <SectionTitle eyebrow="Témoignages" title="Ils m'ont fait confiance." />
+      <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {items.map((t, i) => (
+          <Reveal key={t.name} delay={i * 80}>
+            <figure className="card-soft flex h-full flex-col p-7">
+              <div className="flex gap-1 text-gold">
+                {Array.from({ length: 5 }).map((_, s) => (
+                  <Star key={s} className="h-4 w-4 fill-current" />
+                ))}
+              </div>
+              <blockquote className="mt-5 flex-1 text-sm leading-relaxed text-muted-foreground">
+                « {t.text} »
+              </blockquote>
+              <figcaption className="mt-6 border-t border-border pt-4">
+                <span className="block text-sm font-semibold text-navy-deep">{t.name}</span>
+                <span className="block text-xs text-muted-foreground">{t.role}</span>
+              </figcaption>
+            </figure>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function Index() {
   return (
     <main className="bg-background">
       <Hero />
+      <Temoignages />
       <Objectifs />
       <Solutions />
       <APropos />
