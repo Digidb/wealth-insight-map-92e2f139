@@ -192,20 +192,20 @@ function Hero() {
               Demander mon audit patrimonial offert
             </a>
           </div>
-          <div className="mt-14 grid gap-3 sm:grid-cols-3">
-            {["Partenaire Predictis", "Groupe Premium", "Audit 100 % offert"].map((label, i) => (
-              <div
-                key={label}
-                className={`flex items-center gap-2 rounded-full px-6 py-4 text-xs font-semibold tracking-wide backdrop-blur ${
-                  i === 0
-                    ? "bg-card text-foreground"
-                    : "bg-[oklch(1_0_0/0.14)] text-primary-foreground"
-                }`}
-              >
-                <BadgeCheck className="h-4 w-4" />
-                {label}
-              </div>
-            ))}
+          <div className="mt-14 grid gap-6 lg:grid-cols-[minmax(0,340px)_1fr] lg:items-center">
+            <div className="rounded-2xl border border-[oklch(1_0_0/0.2)] bg-card p-6 shadow-[var(--shadow-card)]">
+              <span className="eyebrow text-muted-foreground">Partenaire officiel</span>
+              <img
+                src={predictisLogo.url}
+                alt="Predictis By Premium"
+                className="mt-4 h-14 w-auto object-contain"
+              />
+              <p className="mt-4 flex items-center gap-2 text-xs font-semibold text-navy-deep">
+                <BadgeCheck className="h-4 w-4 text-navy-soft" />
+                1er courtier en assurance vie-épargne en France
+              </p>
+            </div>
+            <PartnersMarquee />
           </div>
         </div>
       </div>
