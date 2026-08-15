@@ -16,7 +16,13 @@ import {
   TrendingDown,
 } from "lucide-react";
 
-import logo from "@/assets/logo-la.png.asset.json";
+import logo from "@/assets/logo-lamyae.jpg.asset.json";
+import predictisLogo from "@/assets/predictis.png.asset.json";
+import groupePremiumLogo from "@/assets/groupe-premium.png.asset.json";
+import abeilleLogo from "@/assets/abeille.png.asset.json";
+import swisslifeLogo from "@/assets/swisslife.png.asset.json";
+import groupamaLogo from "@/assets/groupama.png.asset.json";
+import ag2rLogo from "@/assets/ag2r.png.asset.json";
 import portrait from "@/assets/lamyae-ayoub.jpg.asset.json";
 import heroImage from "@/assets/hero-meeting.jpg";
 import { Reveal } from "@/components/site/Reveal";
