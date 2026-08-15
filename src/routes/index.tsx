@@ -13,6 +13,7 @@ import {
   PiggyBank,
   Phone,
   ShieldCheck,
+  Star,
   TrendingDown,
 } from "lucide-react";
 
