@@ -178,7 +178,7 @@ function Hero() {
               Particuliers, Indépendants et Chefs d'entreprise
             </p>
             <h1 className="mt-5 text-4xl leading-[1.08] sm:text-6xl md:text-7xl">
-              Votre patrimoine mérite une vision à 360°.
+              Votre patrimoine mérite une vision à 360°
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed opacity-85 sm:text-lg">
               Je vous accompagne dans l'optimisation, la structuration et la protection de vos
