@@ -228,7 +228,7 @@ function Hero() {
               Demander mon audit patrimonial offert
             </a>
           </div>
-          <div className="mt-14 grid gap-6 lg:grid-cols-[minmax(0,340px)_1fr] lg:items-center">
+          <div className="mt-14 grid gap-6 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)] lg:items-center">
             <div className="rounded-2xl border border-[oklch(1_0_0/0.2)] bg-card p-6 shadow-[var(--shadow-card)]">
               <span className="eyebrow text-muted-foreground">Partenaire officiel</span>
               <img
