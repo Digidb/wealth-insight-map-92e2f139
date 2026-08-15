@@ -13,10 +13,17 @@ import {
   PiggyBank,
   Phone,
   ShieldCheck,
+  Star,
   TrendingDown,
 } from "lucide-react";
 
-import logo from "@/assets/logo-la.png.asset.json";
+import logo from "@/assets/logo-lamyae.jpg.asset.json";
+import predictisLogo from "@/assets/predictis.png.asset.json";
+import groupePremiumLogo from "@/assets/groupe-premium.png.asset.json";
+import abeilleLogo from "@/assets/abeille.png.asset.json";
+import swisslifeLogo from "@/assets/swisslife.png.asset.json";
+import groupamaLogo from "@/assets/groupama.png.asset.json";
+import ag2rLogo from "@/assets/ag2r.png.asset.json";
 import portrait from "@/assets/lamyae-ayoub.jpg.asset.json";
 import heroImage from "@/assets/hero-meeting.jpg";
 import { Reveal } from "@/components/site/Reveal";
@@ -74,7 +81,7 @@ const solutions = [
     label: "Bloc 1",
     title: "Immobilier & Financement",
     items: [
-      "Défiscalisation : Pinel, Malraux, Monuments Historiques",
+      "Défiscalisation immobilière",
       "Recherche de biens neufs et financement",
       "Négociation et regroupement de crédits, assurance emprunteur",
     ],
@@ -86,6 +93,7 @@ const solutions = [
     items: [
       "Assurance vie en gestion privée",
       "PER — épargne retraite",
+      "SCPI — immobilier de rendement",
       "Contrat de CAPI (trésorerie d'entreprise)",
     ],
   },
@@ -135,13 +143,11 @@ function Header() {
     <header className="absolute inset-x-0 top-0 z-20">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
         <div className="flex items-center gap-3">
-          <span className="grid h-12 w-12 place-items-center rounded-full bg-card shadow-[var(--shadow-card)]">
-            <img src={logo.url} alt="Logo LA Gestion de patrimoine" className="h-9 w-9 object-contain" />
-          </span>
-          <span className="hidden flex-col leading-tight text-primary-foreground sm:flex">
-            <span className="font-display text-lg">Lamyae Ayoub</span>
-            <span className="eyebrow opacity-70">Gestion de patrimoine</span>
-          </span>
+          <img
+            src={logo.url}
+            alt="Logo Lamyae Ayoub — Gestion de patrimoine"
+            className="h-10 w-auto mix-blend-screen sm:h-12"
+          />
         </div>
         <a
           href={CTA_HREF}
@@ -151,6 +157,41 @@ function Header() {
         </a>
       </div>
     </header>
+  );
+}
+
+const partners = [
+  { src: abeilleLogo.url, name: "Abeille Assurances" },
+  { src: swisslifeLogo.url, name: "Swiss Life" },
+  { src: groupamaLogo.url, name: "Groupama" },
+  { src: ag2rLogo.url, name: "AG2R La Mondiale" },
+  { src: groupePremiumLogo.url, name: "Groupe Premium" },
+];
+
+function PartnersMarquee() {
+  return (
+    <div className="min-w-0 rounded-2xl border border-[oklch(1_0_0/0.16)] bg-[oklch(1_0_0/0.07)] p-5 backdrop-blur">
+      <span className="eyebrow px-1 text-primary-foreground opacity-70">
+        Nos compagnies partenaires
+      </span>
+      <div className="group relative mt-4 overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
+        <div className="marquee-track flex w-max items-center gap-4 group-hover:[animation-play-state:paused]">
+          {[...partners, ...partners].map((p, i) => (
+            <div
+              key={`${p.name}-${i}`}
+              className="grid h-20 w-40 shrink-0 place-items-center rounded-xl bg-card px-5"
+            >
+              <img
+                src={p.src}
+                alt={p.name}
+                loading="lazy"
+                className="max-h-12 w-auto object-contain"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -173,7 +214,7 @@ function Hero() {
               Particuliers, Indépendants et Chefs d'entreprise
             </p>
             <h1 className="mt-5 text-4xl leading-[1.08] sm:text-6xl md:text-7xl">
-              Votre patrimoine mérite une vision à 360°.
+              Votre patrimoine mérite une vision à 360°
             </h1>
             <p className="mt-6 max-w-2xl text-base leading-relaxed opacity-85 sm:text-lg">
               Je vous accompagne dans l'optimisation, la structuration et la protection de vos
@@ -187,20 +228,20 @@ function Hero() {
               Demander mon audit patrimonial offert
             </a>
           </div>
-          <div className="mt-14 grid gap-3 sm:grid-cols-3">
-            {["Partenaire Predictis", "Groupe Premium", "Audit 100 % offert"].map((label, i) => (
-              <div
-                key={label}
-                className={`flex items-center gap-2 rounded-full px-6 py-4 text-xs font-semibold tracking-wide backdrop-blur ${
-                  i === 0
-                    ? "bg-card text-foreground"
-                    : "bg-[oklch(1_0_0/0.14)] text-primary-foreground"
-                }`}
-              >
-                <BadgeCheck className="h-4 w-4" />
-                {label}
-              </div>
-            ))}
+          <div className="mt-14 grid gap-6 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)] lg:items-center">
+            <div className="rounded-2xl border border-[oklch(1_0_0/0.2)] bg-card p-6 shadow-[var(--shadow-card)]">
+              <span className="eyebrow text-muted-foreground">Partenaire officiel</span>
+              <img
+                src={predictisLogo.url}
+                alt="Predictis By Premium"
+                className="mt-4 h-14 w-auto object-contain"
+              />
+              <p className="mt-4 flex items-center gap-2 text-xs font-semibold text-navy-deep">
+                <BadgeCheck className="h-4 w-4 text-navy-soft" />
+                1er courtier en assurance vie-épargne en France
+              </p>
+            </div>
+            <PartnersMarquee />
           </div>
         </div>
       </div>
@@ -463,9 +504,13 @@ function Audit() {
                   <option value="" disabled>
                     Sélectionnez…
                   </option>
-                  <option value="impots">Impôts</option>
+                  <option value="fiscalite">Fiscalité</option>
                   <option value="retraite">Retraite</option>
-                  <option value="immobilier">Immobilier</option>
+                  <option value="credit-immobilier">Crédit immobilier</option>
+                  <option value="placement-financier">Placement financier</option>
+                  <option value="assurance-emprunteur">
+                    Renégociation Assurance emprunteur
+                  </option>
                   <option value="autre">Autre</option>
                 </select>
                 {errors["projet"] && (
@@ -495,10 +540,12 @@ function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-14">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div className="flex items-center gap-3">
-            <img src={logo.url} alt="Logo LA" className="h-12 w-12 object-contain" />
-            <span className="flex flex-col leading-tight">
-              <span className="font-display text-lg text-navy-deep">Lamyae Ayoub</span>
-              <span className="eyebrow text-muted-foreground">Gestion de patrimoine</span>
+            <span className="inline-flex items-center rounded-xl bg-navy-deep px-4 py-3">
+              <img
+                src={logo.url}
+                alt="Logo Lamyae Ayoub — Gestion de patrimoine"
+                className="h-9 w-auto mix-blend-screen"
+              />
             </span>
           </div>
           <nav className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted-foreground">
@@ -517,7 +564,7 @@ function Footer() {
           <p>
             Lamyae Ayoub — Mandataire en assurance et intermédiaire en opérations de banque et
             services de paiement, partenaire de Predictis (Groupe Premium). Activité de courtage
-            enregistrée à l'ORIAS — n° ORIAS : à compléter (
+            enregistrée à l'ORIAS — n° ORIAS : 26000052 (
             <a
               href="https://www.orias.fr"
               target="_blank"
@@ -528,10 +575,6 @@ function Footer() {
             </a>
             ).
           </p>
-          <p>
-            Les informations présentées ne constituent pas un conseil en investissement. Tout
-            placement présente un risque de perte en capital.
-          </p>
           <p>© {new Date().getFullYear()} Lamyae Ayoub — Tous droits réservés.</p>
         </div>
       </div>
@@ -539,10 +582,62 @@ function Footer() {
   );
 }
 
+function Temoignages() {
+  const items = [
+    {
+      name: "Dr. Karim Benali",
+      role: "Chirurgien-dentiste, Lyon",
+      text: "Un accompagnement d'une clarté rare. Ma fiscalité est enfin optimisée et mon épargne retraite structurée sereinement.",
+    },
+    {
+      name: "Pr. Hélène Marchand",
+      role: "Professeure des universités, Paris",
+      text: "Une analyse à 360° très pédagogue. J'ai compris chaque décision avant de la prendre, sans aucune pression commerciale.",
+    },
+    {
+      name: "M. Antoine Rivière",
+      role: "Chef d'entreprise, Bordeaux",
+      text: "Renégociation de mon assurance emprunteur et trésorerie d'entreprise placée : un gain concret dès la première année.",
+    },
+    {
+      name: "Mme Sophie Delcourt",
+      role: "Cadre dirigeante, Nantes",
+      text: "Prévoyance et transmission enfin en ordre. Confiance totale, réactivité et transparence à chaque échange.",
+    },
+  ];
+
+  return (
+    <section id="temoignages" className="mx-auto max-w-7xl px-6 py-24">
+      <SectionTitle eyebrow="Témoignages" title="Ils m'ont fait confiance." />
+      <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {items.map((t, i) => (
+          <Reveal key={t.name} delay={i * 80}>
+            <figure className="card-soft flex h-full flex-col p-7">
+              <div className="flex gap-1 text-gold">
+                {Array.from({ length: 5 }).map((_, s) => (
+                  <Star key={s} className="h-4 w-4 fill-current" />
+                ))}
+              </div>
+              <blockquote className="mt-5 flex-1 text-sm leading-relaxed text-muted-foreground">
+                « {t.text} »
+              </blockquote>
+              <figcaption className="mt-6 border-t border-border pt-4">
+                <span className="block text-sm font-semibold text-navy-deep">{t.name}</span>
+                <span className="block text-xs text-muted-foreground">{t.role}</span>
+              </figcaption>
+            </figure>
+          </Reveal>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function Index() {
   return (
     <main className="bg-background">
       <Hero />
+      <Temoignages />
       <Objectifs />
       <Solutions />
       <APropos />
