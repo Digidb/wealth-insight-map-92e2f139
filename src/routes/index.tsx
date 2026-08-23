@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import {
@@ -17,15 +17,15 @@ import {
   TrendingDown,
 } from "lucide-react";
 
-import logo from "@/assets/logo-lamyae.jpg.asset.json";
+import logo from "@/assets/logo-la-new.png.asset.json";
 import predictisLogo from "@/assets/predictis.png.asset.json";
-import groupePremiumLogo from "@/assets/groupe-premium.png.asset.json";
 import abeilleLogo from "@/assets/abeille.png.asset.json";
 import swisslifeLogo from "@/assets/swisslife.png.asset.json";
-import groupamaLogo from "@/assets/groupama.png.asset.json";
+import groupamaLogo from "@/assets/groupama-new.png.asset.json";
 import ag2rLogo from "@/assets/ag2r.png.asset.json";
-import portrait from "@/assets/lamyae-ayoub.jpg.asset.json";
-import heroImage from "@/assets/hero-meeting.jpg";
+import portrait from "@/assets/lamyae-bureau.png.asset.json";
+import portraitCutout from "@/assets/lamyae-cutout.png.asset.json";
+import heroImage from "@/assets/hero-paris.jpg";
 import { Reveal } from "@/components/site/Reveal";
 
 export const Route = createFileRoute("/")({
@@ -142,13 +142,13 @@ function Header() {
   return (
     <header className="absolute inset-x-0 top-0 z-20">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
-        <div className="flex items-center gap-3">
+        <a href="#" className="inline-flex items-center rounded-2xl bg-card px-4 py-2 shadow-[var(--shadow-card)]">
           <img
             src={logo.url}
             alt="Logo Lamyae Ayoub — Gestion de patrimoine"
-            className="h-10 w-auto mix-blend-screen sm:h-12"
+            className="h-10 w-auto sm:h-12"
           />
-        </div>
+        </a>
         <a
           href={CTA_HREF}
           className="inline-flex items-center gap-2 rounded-full bg-card px-5 py-3 text-sm font-semibold text-foreground shadow-[var(--shadow-card)] transition-transform hover:-translate-y-0.5"
@@ -165,12 +165,11 @@ const partners = [
   { src: swisslifeLogo.url, name: "Swiss Life" },
   { src: groupamaLogo.url, name: "Groupama" },
   { src: ag2rLogo.url, name: "AG2R La Mondiale" },
-  { src: groupePremiumLogo.url, name: "Groupe Premium" },
 ];
 
 function PartnersMarquee() {
   return (
-    <div className="min-w-0 rounded-2xl border border-[oklch(1_0_0/0.16)] bg-[oklch(1_0_0/0.07)] p-5 backdrop-blur">
+    <div className="min-w-0 rounded-2xl border border-white/15 bg-white/[0.07] p-5 backdrop-blur">
       <span className="eyebrow px-1 text-primary-foreground opacity-70">
         Nos compagnies partenaires
       </span>
@@ -206,11 +205,12 @@ function Hero() {
           height={1104}
           className="absolute inset-0 h-full w-full object-cover opacity-35"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(100deg,oklch(0.22_0.05_259/0.94)_0%,oklch(0.22_0.05_259/0.7)_45%,oklch(0.22_0.05_259/0.35)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(100deg,rgb(0_3_46/0.95)_0%,rgb(0_3_46/0.78)_45%,rgb(0_3_46/0.5)_100%)]" />
         <Header />
-        <div className="relative mx-auto max-w-7xl px-6 pt-40 pb-10 md:pt-52 md:pb-14">
-          <div className="max-w-3xl text-primary-foreground">
-            <p className="eyebrow text-[oklch(0.82_0.07_84)]">
+        <div className="relative mx-auto max-w-7xl px-6 pt-32 pb-10 md:pt-40 md:pb-14">
+          <div className="grid items-end gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="max-w-2xl pb-6 text-primary-foreground">
+            <p className="eyebrow text-gold">
               Particuliers, Indépendants et Chefs d'entreprise
             </p>
             <h1 className="mt-5 text-4xl leading-[1.08] sm:text-6xl md:text-7xl">
@@ -222,14 +222,23 @@ function Hero() {
             </p>
             <a
               href={CTA_HREF}
-              className="mt-9 inline-flex items-center gap-3 rounded-full bg-[oklch(0.82_0.07_84)] px-7 py-4 text-sm font-bold text-[oklch(0.22_0.05_259)] transition-transform hover:-translate-y-0.5 sm:text-base"
+              className="mt-9 inline-flex items-center gap-3 rounded-full bg-gold px-7 py-4 text-sm font-bold text-primary-foreground transition-transform hover:-translate-y-0.5 sm:text-base"
             >
               <CalendarDays className="h-5 w-5" />
               Demander mon audit patrimonial offert
             </a>
           </div>
+            <div className="relative hidden justify-center lg:flex">
+              <div className="absolute bottom-0 h-[78%] w-[78%] rounded-t-full bg-gold/25 blur-[2px]" />
+              <img
+                src={portraitCutout.url}
+                alt="Lamyae Ayoub, experte en gestion de patrimoine"
+                className="relative z-10 h-[30rem] w-auto object-contain object-bottom drop-shadow-[0_25px_50px_rgb(0_3_46/0.5)]"
+              />
+            </div>
+          </div>
           <div className="mt-14 grid gap-6 lg:grid-cols-[minmax(0,320px)_minmax(0,1fr)] lg:items-center">
-            <div className="rounded-2xl border border-[oklch(1_0_0/0.2)] bg-card p-6 shadow-[var(--shadow-card)]">
+            <div className="rounded-2xl border border-white/20 bg-card p-6 shadow-[var(--shadow-card)]">
               <span className="eyebrow text-muted-foreground">Partenaire officiel</span>
               <img
                 src={predictisLogo.url}
@@ -369,7 +378,7 @@ function Etapes() {
     <section className="px-4 pb-24">
       <div className="mx-auto max-w-7xl rounded-[2rem] surface-navy px-6 py-20">
         <div className="mx-auto max-w-3xl text-center text-primary-foreground">
-          <span className="eyebrow text-[oklch(0.82_0.07_84)]">Comment ça marche ?</span>
+          <span className="eyebrow text-gold">Comment ça marche ?</span>
           <h2 className="mt-6 text-3xl leading-tight sm:text-5xl">
             Votre audit gratuit en 3 étapes simples.
           </h2>
@@ -377,8 +386,8 @@ function Etapes() {
         <div className="mt-14 grid gap-5 md:grid-cols-3">
           {etapes.map((e, i) => (
             <Reveal key={e.step} delay={i * 100}>
-              <article className="h-full rounded-2xl border border-[oklch(1_0_0/0.16)] bg-[oklch(1_0_0/0.07)] p-8 text-primary-foreground">
-                <span className="font-display text-4xl text-[oklch(0.82_0.07_84)]">{e.step}</span>
+              <article className="h-full rounded-2xl border border-white/15 bg-white/[0.07] p-8 text-primary-foreground">
+                <span className="font-display text-4xl font-bold text-gold">{e.step}</span>
                 <h3 className="mt-4 text-xl">{e.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed opacity-80">{e.text}</p>
               </article>
@@ -540,21 +549,19 @@ function Footer() {
       <div className="mx-auto max-w-7xl px-6 py-14">
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div className="flex items-center gap-3">
-            <span className="inline-flex items-center rounded-xl bg-navy-deep px-4 py-3">
-              <img
-                src={logo.url}
-                alt="Logo Lamyae Ayoub — Gestion de patrimoine"
-                className="h-9 w-auto mix-blend-screen"
-              />
-            </span>
+            <img
+              src={logo.url}
+              alt="Logo Lamyae Ayoub — Gestion de patrimoine"
+              className="h-14 w-auto"
+            />
           </div>
           <nav className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted-foreground">
-            <a href="#objectifs" className="hover:text-navy-deep">
+            <Link to="/mentions-legales" className="hover:text-navy-deep">
               Mentions légales
-            </a>
-            <a href="#objectifs" className="hover:text-navy-deep">
+            </Link>
+            <Link to="/confidentialite" className="hover:text-navy-deep">
               Politique de confidentialité (RGPD)
-            </a>
+            </Link>
             <a href="mailto:l.ayoub@predictis-mia.com" className="hover:text-navy-deep">
               Contact
             </a>
@@ -585,22 +592,22 @@ function Footer() {
 function Temoignages() {
   const items = [
     {
-      name: "Dr. Karim Benali",
+      name: "Dr. Benali",
       role: "Chirurgien-dentiste, Lyon",
       text: "Un accompagnement d'une clarté rare. Ma fiscalité est enfin optimisée et mon épargne retraite structurée sereinement.",
     },
     {
-      name: "Pr. Hélène Marchand",
+      name: "Pr. Marchand",
       role: "Professeure des universités, Paris",
       text: "Une analyse à 360° très pédagogue. J'ai compris chaque décision avant de la prendre, sans aucune pression commerciale.",
     },
     {
-      name: "M. Antoine Rivière",
+      name: "M. Rivière",
       role: "Chef d'entreprise, Bordeaux",
       text: "Renégociation de mon assurance emprunteur et trésorerie d'entreprise placée : un gain concret dès la première année.",
     },
     {
-      name: "Mme Sophie Delcourt",
+      name: "Mme Delcourt",
       role: "Cadre dirigeante, Nantes",
       text: "Prévoyance et transmission enfin en ordre. Confiance totale, réactivité et transparence à chaque échange.",
     },
