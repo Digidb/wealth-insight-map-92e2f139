@@ -42,39 +42,40 @@
   --color-navy-soft: var(--navy-soft);
   --color-gold: var(--gold);
   --color-cream: var(--cream);
-  --font-display: "Cormorant Garamond", Georgia, serif;
-  --font-sans: "Karla", system-ui, sans-serif;
+  --font-display: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Montserrat", "Helvetica Neue", Arial, sans-serif;
 }
 
 :root {
   --radius: 1rem;
-  --cream: oklch(0.977 0.006 91);
-  --background: oklch(0.988 0.004 91);
-  --foreground: oklch(0.26 0.045 258);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.26 0.045 258);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.26 0.045 258);
-  --navy: oklch(0.36 0.062 254);
-  --navy-deep: oklch(0.245 0.055 259);
-  --navy-soft: oklch(0.52 0.062 252);
-  --gold: oklch(0.74 0.088 84);
-  --primary: oklch(0.29 0.058 258);
-  --primary-foreground: oklch(0.985 0.005 91);
-  --secondary: oklch(0.95 0.008 250);
-  --secondary-foreground: oklch(0.29 0.058 258);
-  --muted: oklch(0.955 0.007 250);
-  --muted-foreground: oklch(0.52 0.03 255);
-  --accent: oklch(0.94 0.02 84);
-  --accent-foreground: oklch(0.29 0.058 258);
+  --cream: #f7f7fa;
+  --background: #ffffff;
+  --foreground: #00032e;
+  --card: #ffffff;
+  --card-foreground: #00032e;
+  --popover: #ffffff;
+  --popover-foreground: #00032e;
+  --navy: #10154d;
+  --navy-deep: #00032e;
+  --navy-soft: #3a4079;
+  /* accent rose de la charte */
+  --gold: #d93f73;
+  --primary: #00032e;
+  --primary-foreground: #ffffff;
+  --secondary: #f2f3f8;
+  --secondary-foreground: #00032e;
+  --muted: #f2f3f8;
+  --muted-foreground: #5b5f7d;
+  --accent: #fbe7ee;
+  --accent-foreground: #00032e;
   --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.9 0.012 252);
-  --input: oklch(0.9 0.012 252);
-  --ring: oklch(0.52 0.062 252);
-  --gradient-navy: linear-gradient(135deg, oklch(0.42 0.06 250), oklch(0.22 0.05 259));
-  --shadow-soft: 0 18px 50px -24px oklch(0.26 0.045 258 / 0.28);
-  --shadow-card: 0 1px 2px oklch(0.26 0.045 258 / 0.05), 0 12px 32px -18px oklch(0.26 0.045 258 / 0.22);
+  --destructive-foreground: #ffffff;
+  --border: #e2e4ee;
+  --input: #e2e4ee;
+  --ring: #d93f73;
+  --gradient-navy: linear-gradient(135deg, #10154d, #00032e);
+  --shadow-soft: 0 18px 50px -24px rgb(0 3 46 / 0.3);
+  --shadow-card: 0 1px 2px rgb(0 3 46 / 0.05), 0 12px 32px -18px rgb(0 3 46 / 0.22);
 }
 
 @layer base {
@@ -93,10 +94,11 @@
   h2,
   h3 {
     font-family: var(--font-display);
-    font-weight: 500;
-    letter-spacing: -0.01em;
+    font-weight: 600;
+    letter-spacing: -0.02em;
   }
 }
+
 
 @utility surface-navy {
   background-image: var(--gradient-navy);
