@@ -376,7 +376,7 @@ function APropos() {
 function Etapes() {
   return (
     <section className="px-4 pb-24">
-      <div className="mx-auto max-w-7xl rounded-[2rem] surface-navy px-6 py-20">
+      <div className="mx-auto max-w-7xl rounded-[2rem] bg-[linear-gradient(115deg,#3a4079_0%,#252a5c_50%,#10154d_100%)] px-6 py-20 text-primary-foreground">
         <div className="mx-auto max-w-3xl text-center text-primary-foreground">
           <span className="eyebrow text-gold">Comment ça marche ?</span>
           <h2 className="mt-6 text-3xl leading-tight sm:text-5xl">
