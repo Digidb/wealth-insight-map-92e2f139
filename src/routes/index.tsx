@@ -142,11 +142,11 @@ function Header() {
   return (
     <header className="absolute inset-x-0 top-0 z-20">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
-        <a href="#" className="inline-flex items-center rounded-2xl bg-card px-4 py-2 shadow-[var(--shadow-card)]">
+        <a href="#" className="inline-flex items-center rounded-2xl bg-card px-5 py-2 shadow-[var(--shadow-card)]">
           <img
             src={logo.url}
             alt="Logo Lamyae Ayoub — Gestion de patrimoine"
-            className="h-10 w-auto sm:h-12"
+            className="h-14 w-auto sm:h-16"
           />
         </a>
         <a
@@ -552,7 +552,7 @@ function Footer() {
             <img
               src={logo.url}
               alt="Logo Lamyae Ayoub — Gestion de patrimoine"
-              className="h-14 w-auto"
+              className="h-16 w-auto"
             />
           </div>
           <nav className="flex flex-wrap gap-x-8 gap-y-3 text-sm text-muted-foreground">
