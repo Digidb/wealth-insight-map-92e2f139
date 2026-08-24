@@ -594,22 +594,22 @@ function Temoignages() {
     {
       name: "Dr. Benali",
       role: "Chirurgien-dentiste, Lyon",
-      text: "Un accompagnement d'une clarté rare. Ma fiscalité est enfin optimisée et mon épargne retraite structurée sereinement.",
+      text: "Honnêtement, je repoussais ce sujet depuis des années. Lamyae a pris le temps de tout reprendre à zéro avec moi, et elle a réussi à faire baisser mes impôts tout en lançant mon épargne retraite. Merci pour votre patience !",
     },
     {
       name: "Pr. Marchand",
       role: "Professeure des universités, Paris",
-      text: "Une analyse à 360° très pédagogue. J'ai compris chaque décision avant de la prendre, sans aucune pression commerciale.",
+      text: "Ce que j'ai apprécié, c'est qu'elle ne m'a jamais rien vendu. Elle explique, elle compare, puis elle laisse décider. Lamyae a su rendre simple quelque chose qui me paraissait très opaque.",
     },
     {
       name: "M. Rivière",
       role: "Chef d'entreprise, Bordeaux",
-      text: "Renégociation de mon assurance emprunteur et trésorerie d'entreprise placée : un gain concret dès la première année.",
+      text: "Lamyae a réussi à renégocier mon assurance emprunteur en trois semaines : plus de 9 000 € économisés sur la durée du prêt. Elle a aussi placé la trésorerie de ma société. Réactive et vraiment carrée, bravo.",
     },
     {
       name: "Mme Delcourt",
       role: "Cadre dirigeante, Nantes",
-      text: "Prévoyance et transmission enfin en ordre. Confiance totale, réactivité et transparence à chaque échange.",
+      text: "J'avais surtout peur de mal protéger mes enfants. Lamyae a remis ma prévoyance et ma transmission en ordre, et elle répond toujours quand j'ai une question. Je la recommande sans hésiter.",
     },
   ];
 
