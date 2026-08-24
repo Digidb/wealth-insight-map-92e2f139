@@ -17,14 +17,14 @@ import {
   TrendingDown,
 } from "lucide-react";
 
-import logo from "@/assets/logo-la-new.png.asset.json";
-import predictisLogo from "@/assets/predictis.png.asset.json";
-import abeilleLogo from "@/assets/abeille.png.asset.json";
-import swisslifeLogo from "@/assets/swisslife.png.asset.json";
-import groupamaLogo from "@/assets/groupama-new.png.asset.json";
-import ag2rLogo from "@/assets/ag2r.png.asset.json";
-import portrait from "@/assets/lamyae-bureau.png.asset.json";
-import portraitCutout from "@/assets/lamyae-cutout.png.asset.json";
+import logo from "@/assets/logo-la-new.png";
+import predictisLogo from "@/assets/predictis.png";
+import abeilleLogo from "@/assets/abeille.png";
+import swisslifeLogo from "@/assets/swisslife.png";
+import groupamaLogo from "@/assets/groupama-new.png";
+import ag2rLogo from "@/assets/ag2r.png";
+import portrait from "@/assets/lamyae-bureau.png";
+import portraitCutout from "@/assets/lamyae-cutout.png";
 import heroImage from "@/assets/hero-paris.jpg";
 import { Reveal } from "@/components/site/Reveal";
 
@@ -144,7 +144,7 @@ function Header() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
         <a href="#" className="inline-flex items-center rounded-2xl bg-card px-5 py-2 shadow-[var(--shadow-card)]">
           <img
-            src={logo.url}
+            src={logo}
             alt="Logo Lamyae Ayoub — Gestion de patrimoine"
             className="h-14 w-auto sm:h-16"
           />
@@ -161,10 +161,10 @@ function Header() {
 }
 
 const partners = [
-  { src: abeilleLogo.url, name: "Abeille Assurances" },
-  { src: swisslifeLogo.url, name: "Swiss Life" },
-  { src: groupamaLogo.url, name: "Groupama" },
-  { src: ag2rLogo.url, name: "AG2R La Mondiale" },
+  { src: abeilleLogo, name: "Abeille Assurances" },
+  { src: swisslifeLogo, name: "Swiss Life" },
+  { src: groupamaLogo, name: "Groupama" },
+  { src: ag2rLogo, name: "AG2R La Mondiale" },
 ];
 
 function PartnersMarquee() {
@@ -231,7 +231,7 @@ function Hero() {
             <div className="relative hidden justify-center lg:flex">
               <div className="absolute bottom-0 h-[78%] w-[78%] rounded-t-full bg-gold/25 blur-[2px]" />
               <img
-                src={portraitCutout.url}
+                src={portraitCutout}
                 alt="Lamyae Ayoub, experte en gestion de patrimoine"
                 className="relative z-10 h-[30rem] w-auto object-contain object-bottom drop-shadow-[0_25px_50px_rgb(0_3_46/0.5)]"
               />
@@ -241,7 +241,7 @@ function Hero() {
             <div className="rounded-2xl border border-white/20 bg-card p-6 shadow-[var(--shadow-card)]">
               <span className="eyebrow text-muted-foreground">Partenaire officiel</span>
               <img
-                src={predictisLogo.url}
+                src={predictisLogo}
                 alt="Predictis By Premium"
                 className="mt-4 h-14 w-auto object-contain"
               />
@@ -332,7 +332,7 @@ function APropos() {
           <div className="relative">
             <div className="absolute -inset-4 rounded-[2.5rem] bg-accent/60" />
             <img
-              src={portrait.url}
+              src={portrait}
               alt="Lamyae Ayoub, experte en gestion de patrimoine"
               loading="lazy"
               className="relative aspect-[4/5] w-full rounded-[2rem] object-cover shadow-[var(--shadow-soft)]"
@@ -550,7 +550,7 @@ function Footer() {
         <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
           <div className="flex items-center gap-3">
             <img
-              src={logo.url}
+              src={logo}
               alt="Logo Lamyae Ayoub — Gestion de patrimoine"
               className="h-16 w-auto"
             />
