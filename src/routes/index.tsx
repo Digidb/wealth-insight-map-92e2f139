@@ -203,7 +203,7 @@ function Hero() {
           alt="Rendez-vous conseil en gestion de patrimoine"
           width={1600}
           height={1104}
-          className="absolute inset-0 h-full w-full object-cover opacity-35"
+          className="absolute inset-0 h-full w-full object-cover opacity-55"
         />
         <div className="absolute inset-0 bg-[linear-gradient(100deg,#25273cf2_0%,#191a25c7_45%,#00032e80_100%)]" />
         <Header />
