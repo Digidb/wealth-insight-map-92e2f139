@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
-import logo from "@/assets/logo-la-new.png.asset.json";
+import logo from "@/assets/logo-la-new.png";
 
 export function LegalLayout({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -10,7 +10,7 @@ export function LegalLayout({ title, children }: { title: string; children: Reac
         <div className="mx-auto flex max-w-4xl items-center justify-between px-6 py-6">
           <Link to="/">
             <img
-              src={logo.url}
+              src={logo}
               alt="Logo Lamyae Ayoub — Gestion de patrimoine"
               className="h-12 w-auto"
             />
