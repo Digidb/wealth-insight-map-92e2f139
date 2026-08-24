@@ -205,7 +205,7 @@ function Hero() {
           height={1104}
           className="absolute inset-0 h-full w-full object-cover opacity-35"
         />
-        <div className="absolute inset-0 bg-[linear-gradient(100deg,rgb(0_3_46/0.95)_0%,rgb(0_3_46/0.78)_45%,rgb(0_3_46/0.5)_100%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(100deg,#25273cf2_0%,#191a25c7_45%,#00032e80_100%)]" />
         <Header />
         <div className="relative mx-auto max-w-7xl px-6 pt-32 pb-10 md:pt-40 md:pb-14">
           <div className="grid items-end gap-8 lg:grid-cols-[1.05fr_0.95fr]">
