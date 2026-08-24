@@ -142,11 +142,11 @@ function Header() {
   return (
     <header className="absolute inset-x-0 top-0 z-20">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
-        <a href="#" className="inline-flex items-center rounded-2xl bg-card px-5 py-2 shadow-[var(--shadow-card)]">
+        <a href="#" className="inline-flex items-center rounded-2xl bg-card px-6 py-3 shadow-[var(--shadow-card)]">
           <img
             src={logo}
             alt="Logo Lamyae Ayoub — Gestion de patrimoine"
-            className="h-14 w-auto sm:h-16"
+            className="h-20 w-auto sm:h-24 lg:h-28"
           />
         </a>
         <a
