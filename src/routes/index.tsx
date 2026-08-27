@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { z } from "zod";
 import {
+  ArrowUp,
   ArrowUpRight,
   BadgeCheck,
   Building2,
