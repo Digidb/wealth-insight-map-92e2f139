@@ -641,6 +641,30 @@ function Temoignages() {
   );
 }
 
+function BackToTop() {
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const toggle = () => setVisible(window.scrollY > 400);
+    toggle();
+    window.addEventListener("scroll", toggle, { passive: true });
+    return () => window.removeEventListener("scroll", toggle);
+  }, []);
+
+  return (
+    <button
+      type="button"
+      onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+      aria-label="Remonter en haut de la page"
+      className={`fixed bottom-6 left-6 z-50 inline-flex items-center justify-center rounded-full bg-navy-deep p-3 text-white shadow-[var(--shadow-soft)] transition-all hover:-translate-y-1 hover:bg-gold focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 ${
+        visible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0 pointer-events-none"
+      }`}
+    >
+      <ArrowUp className="h-5 w-5" />
+    </button>
+  );
+}
+
 function Index() {
   return (
     <main className="bg-background">
@@ -652,6 +676,7 @@ function Index() {
       <Etapes />
       <Audit />
       <Footer />
+      <BackToTop />
     </main>
   );
 }
