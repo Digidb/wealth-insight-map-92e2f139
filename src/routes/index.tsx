@@ -403,6 +403,7 @@ function Etapes() {
 function Audit() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
+  const [projet, setProjet] = useState("");
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -419,6 +420,7 @@ function Audit() {
     }
     setErrors({});
     setSent(true);
+
   }
 
   const fieldClass =
