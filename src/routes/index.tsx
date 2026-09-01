@@ -128,16 +128,28 @@ const etapes = [
   },
 ];
 
-const formSchema = z.object({
-  nom: z.string().trim().min(2, "Merci d'indiquer vos nom et prénom.").max(100),
-  telephone: z
-    .string()
-    .trim()
-    .min(8, "Merci d'indiquer un numéro de téléphone valide.")
-    .max(25, "Numéro trop long."),
-  email: z.string().trim().email("Adresse email invalide.").max(255),
-  projet: z.string().min(1, "Merci de sélectionner votre projet principal."),
-});
+const formSchema = z
+  .object({
+    nom: z.string().trim().min(2, "Merci d'indiquer vos nom et prénom.").max(100),
+    telephone: z
+      .string()
+      .trim()
+      .min(8, "Merci d'indiquer un numéro de téléphone valide.")
+      .max(25, "Numéro trop long."),
+    email: z.string().trim().email("Adresse email invalide.").max(255),
+    projet: z.string().min(1, "Merci de sélectionner votre projet principal."),
+    precision: z.string().trim().max(1000, "Message trop long.").optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.projet === "autre" && (!data.precision || data.precision.length < 5)) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["precision"],
+        message: "Merci de préciser votre demande.",
+      });
+    }
+  });
+
 
 function Header() {
   return (
