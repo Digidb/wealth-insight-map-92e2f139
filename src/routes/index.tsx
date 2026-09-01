@@ -128,16 +128,28 @@ const etapes = [
   },
 ];
 
-const formSchema = z.object({
-  nom: z.string().trim().min(2, "Merci d'indiquer vos nom et prénom.").max(100),
-  telephone: z
-    .string()
-    .trim()
-    .min(8, "Merci d'indiquer un numéro de téléphone valide.")
-    .max(25, "Numéro trop long."),
-  email: z.string().trim().email("Adresse email invalide.").max(255),
-  projet: z.string().min(1, "Merci de sélectionner votre projet principal."),
-});
+const formSchema = z
+  .object({
+    nom: z.string().trim().min(2, "Merci d'indiquer vos nom et prénom.").max(100),
+    telephone: z
+      .string()
+      .trim()
+      .min(8, "Merci d'indiquer un numéro de téléphone valide.")
+      .max(25, "Numéro trop long."),
+    email: z.string().trim().email("Adresse email invalide.").max(255),
+    projet: z.string().min(1, "Merci de sélectionner votre projet principal."),
+    precision: z.string().trim().max(1000, "Message trop long.").optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.projet === "autre" && (!data.precision || data.precision.length < 5)) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["precision"],
+        message: "Merci de préciser votre demande.",
+      });
+    }
+  });
+
 
 function Header() {
   return (
@@ -403,6 +415,7 @@ function Etapes() {
 function Audit() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
+  const [projet, setProjet] = useState("");
 
   function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -419,6 +432,7 @@ function Audit() {
     }
     setErrors({});
     setSent(true);
+
   }
 
   const fieldClass =
@@ -510,23 +524,48 @@ function Audit() {
                 <label htmlFor="projet" className="text-sm font-semibold text-navy-deep">
                   Votre projet principal
                 </label>
-                <select id="projet" name="projet" defaultValue="" className={fieldClass}>
+                <select
+                  id="projet"
+                  name="projet"
+                  defaultValue=""
+                  className={fieldClass}
+                  onChange={(e) => setProjet(e.target.value)}
+                >
                   <option value="" disabled>
                     Sélectionnez…
                   </option>
-                  <option value="fiscalite">Fiscalité</option>
-                  <option value="retraite">Retraite</option>
-                  <option value="credit-immobilier">Crédit immobilier</option>
-                  <option value="placement-financier">Placement financier</option>
+                  <option value="fiscalite">Optimiser ma fiscalité</option>
+                  <option value="retraite">Préparer ma retraite</option>
+                  <option value="credit-immobilier">Financer mon crédit immobilier</option>
+                  <option value="placement-financier">Faire fructifier mon placement financier</option>
                   <option value="assurance-emprunteur">
-                    Renégociation Assurance emprunteur
+                    Renégocier mon assurance emprunteur
                   </option>
-                  <option value="autre">Autre</option>
+                  <option value="autre">Autre demande</option>
                 </select>
                 {errors["projet"] && (
                   <p className="mt-2 text-xs text-destructive">{errors["projet"]}</p>
                 )}
               </div>
+              {projet === "autre" && (
+                <div>
+                  <label htmlFor="precision" className="text-sm font-semibold text-navy-deep">
+                    Précisez votre demande
+                  </label>
+                  <textarea
+                    id="precision"
+                    name="precision"
+                    rows={4}
+                    maxLength={1000}
+                    placeholder="Décrivez votre besoin en quelques mots…"
+                    className={fieldClass}
+                  />
+                  {errors["precision"] && (
+                    <p className="mt-2 text-xs text-destructive">{errors["precision"]}</p>
+                  )}
+                </div>
+              )}
+
               <button
                 type="submit"
                 className="w-full rounded-full surface-navy px-6 py-4 text-sm font-bold transition-transform hover:-translate-y-0.5"
