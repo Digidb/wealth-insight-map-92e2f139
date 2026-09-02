@@ -416,8 +416,11 @@ function Audit() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
   const [projet, setProjet] = useState("");
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
+  const submitContact = useServerFn(sendContactRequest);
 
-  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.currentTarget));
     const result = formSchema.safeParse(data);
@@ -431,9 +434,19 @@ function Audit() {
       return;
     }
     setErrors({});
-    setSent(true);
-
+    setSendError("");
+    setSending(true);
+    try {
+      await submitContact({ data: result.data });
+      setSent(true);
+    } catch (error) {
+      console.error(error);
+      setSendError("L'envoi a échoué. Merci de réessayer ou de me contacter par téléphone.");
+    } finally {
+      setSending(false);
+    }
   }
+
 
   const fieldClass =
     "mt-2 w-full rounded-xl border border-input bg-card px-4 py-3 text-sm outline-none transition-colors focus:border-navy-soft focus:ring-2 focus:ring-ring/30";
