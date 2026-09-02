@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { z } from "zod";
+import { sendContactRequest } from "@/lib/contact.functions";
+
 import {
   ArrowUp,
   ArrowUpRight,
@@ -416,8 +419,11 @@ function Audit() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
   const [projet, setProjet] = useState("");
+  const [sending, setSending] = useState(false);
+  const [sendError, setSendError] = useState("");
+  const submitContact = useServerFn(sendContactRequest);
 
-  function onSubmit(event: React.FormEvent<HTMLFormElement>) {
+  async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.currentTarget));
     const result = formSchema.safeParse(data);
@@ -431,9 +437,19 @@ function Audit() {
       return;
     }
     setErrors({});
-    setSent(true);
-
+    setSendError("");
+    setSending(true);
+    try {
+      await submitContact({ data: result.data });
+      setSent(true);
+    } catch (error) {
+      console.error(error);
+      setSendError("L'envoi a échoué. Merci de réessayer ou de me contacter par téléphone.");
+    } finally {
+      setSending(false);
+    }
   }
+
 
   const fieldClass =
     "mt-2 w-full rounded-xl border border-input bg-card px-4 py-3 text-sm outline-none transition-colors focus:border-navy-soft focus:ring-2 focus:ring-ring/30";
@@ -568,10 +584,13 @@ function Audit() {
 
               <button
                 type="submit"
-                className="w-full rounded-full surface-navy px-6 py-4 text-sm font-bold transition-transform hover:-translate-y-0.5"
+                disabled={sending}
+                className="w-full rounded-full surface-navy px-6 py-4 text-sm font-bold transition-transform hover:-translate-y-0.5 disabled:opacity-60"
               >
-                Obtenir mon audit gratuit
+                {sending ? "Envoi en cours…" : "Obtenir mon audit gratuit"}
               </button>
+              {sendError && <p className="text-center text-xs text-destructive">{sendError}</p>}
+
               <p className="text-center text-xs text-muted-foreground">
                 Vos données sont utilisées uniquement pour vous recontacter (RGPD).
               </p>
@@ -695,7 +714,7 @@ function BackToTop() {
       type="button"
       onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
       aria-label="Remonter en haut de la page"
-      className={`fixed bottom-6 left-6 z-50 inline-flex items-center justify-center rounded-full bg-navy-deep p-3 text-white shadow-[var(--shadow-soft)] transition-all hover:-translate-y-1 hover:bg-gold focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 ${
+      className={`fixed bottom-6 right-6 z-50 inline-flex items-center justify-center rounded-full bg-navy-deep p-3 text-white shadow-[var(--shadow-soft)] transition-all hover:-translate-y-1 hover:bg-gold focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 ${
         visible ? "translate-y-0 opacity-100" : "translate-y-4 opacity-0 pointer-events-none"
       }`}
     >
