@@ -141,7 +141,7 @@ const formSchema = z
       .max(25, "Numéro trop long."),
     email: z.string().trim().email("Adresse email invalide.").max(255),
     projet: z.string().min(1, "Merci de sélectionner votre projet principal."),
-    precision: z.string().trim().max(1000, "Message trop long.").optional(),
+    precision: z.string().trim().max(600, "Message trop long (600 caractères maximum).").optional(),
   })
   .superRefine((data, ctx) => {
     if (data.projet === "autre" && (!data.precision || data.precision.length < 5)) {
