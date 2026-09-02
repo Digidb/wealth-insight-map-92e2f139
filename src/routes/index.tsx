@@ -419,6 +419,7 @@ function Audit() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
   const [projet, setProjet] = useState("");
+  const [precision, setPrecision] = useState("");
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState("");
   const submitContact = useServerFn(sendContactRequest);
