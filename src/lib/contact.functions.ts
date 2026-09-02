@@ -6,7 +6,7 @@ const contactSchema = z.object({
   telephone: z.string().trim().min(8).max(25),
   email: z.string().trim().email().max(255),
   projet: z.string().trim().min(1).max(120),
-  precision: z.string().trim().max(1000).optional(),
+  precision: z.string().trim().max(600).optional(),
 });
 
 const escapeHtml = (value: string) =>
