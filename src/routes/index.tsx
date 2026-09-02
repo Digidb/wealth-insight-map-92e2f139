@@ -581,10 +581,13 @@ function Audit() {
 
               <button
                 type="submit"
-                className="w-full rounded-full surface-navy px-6 py-4 text-sm font-bold transition-transform hover:-translate-y-0.5"
+                disabled={sending}
+                className="w-full rounded-full surface-navy px-6 py-4 text-sm font-bold transition-transform hover:-translate-y-0.5 disabled:opacity-60"
               >
-                Obtenir mon audit gratuit
+                {sending ? "Envoi en cours…" : "Obtenir mon audit gratuit"}
               </button>
+              {sendError && <p className="text-center text-xs text-destructive">{sendError}</p>}
+
               <p className="text-center text-xs text-muted-foreground">
                 Vos données sont utilisées uniquement pour vous recontacter (RGPD).
               </p>
