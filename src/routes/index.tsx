@@ -141,7 +141,7 @@ const formSchema = z
       .max(25, "Numéro trop long."),
     email: z.string().trim().email("Adresse email invalide.").max(255),
     projet: z.string().min(1, "Merci de sélectionner votre projet principal."),
-    precision: z.string().trim().max(1000, "Message trop long.").optional(),
+    precision: z.string().trim().max(600, "Message trop long (600 caractères maximum).").optional(),
   })
   .superRefine((data, ctx) => {
     if (data.projet === "autre" && (!data.precision || data.precision.length < 5)) {
@@ -419,6 +419,7 @@ function Audit() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [sent, setSent] = useState(false);
   const [projet, setProjet] = useState("");
+  const [precision, setPrecision] = useState("");
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState("");
   const submitContact = useServerFn(sendContactRequest);
@@ -571,11 +572,14 @@ function Audit() {
                   <textarea
                     id="precision"
                     name="precision"
-                    rows={4}
-                    maxLength={1000}
-                    placeholder="Décrivez votre besoin en quelques mots…"
+                    rows={5}
+                    maxLength={600}
+                    value={precision}
+                    onChange={(event) => setPrecision(event.target.value.slice(0, 600))}
+                    placeholder="Décrivez votre besoin en quelques mots… (3 paragraphes maximum)"
                     className={fieldClass}
                   />
+                  <p className="mt-1 text-right text-xs text-navy-deep/50">{precision.length}/600</p>
                   {errors["precision"] && (
                     <p className="mt-2 text-xs text-destructive">{errors["precision"]}</p>
                   )}
