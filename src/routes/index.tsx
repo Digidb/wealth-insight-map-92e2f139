@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 import { z } from "zod";
+import { sendContactRequest } from "@/lib/contact.functions";
+
 import {
   ArrowUp,
   ArrowUpRight,
