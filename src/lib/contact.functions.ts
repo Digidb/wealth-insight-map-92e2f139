@@ -55,7 +55,7 @@ export const sendContactRequest = createServerFn({ method: "POST" })
         "X-Connection-Api-Key": resendApiKey,
       },
       body: JSON.stringify({
-        from: "Site Lamyae Ayoub <onboarding@resend.dev>",
+        from: "Site Lamyae Ayoub <contact@lamyaeayoub.fr>",
         to: ["l.ayoub@predictis-mia.com"],
         reply_to: data.email,
         subject: `Demande de rendez-vous — ${data.nom}`,
