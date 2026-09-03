@@ -51,9 +51,7 @@ function MentionsLegales() {
       </p>
       <h3>1.2 Hébergeur</h3>
       <p>Le site web www.predictis.com est hébergé sur le serveur de la société :</p>
-      <p>
-        Kinsta Inc. 8605 Santa Monica Blvd #92581 West Hollywood, CA 90069-4109, United States.
-      </p>
+      <p>Kinsta Inc. 8605 Santa Monica Blvd #92581 West Hollywood, CA 90069-4109, United States.</p>
 
       <h2>Article 2 – Contenu du site</h2>
       <p>
