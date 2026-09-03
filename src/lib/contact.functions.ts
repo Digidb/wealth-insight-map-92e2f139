@@ -1,13 +1,36 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-const contactSchema = z.object({
+export const contactSchema = z.object({
   nom: z.string().trim().min(2).max(100),
   telephone: z.string().trim().min(8).max(25),
   email: z.string().trim().email().max(255),
-  projet: z.string().trim().min(1).max(120),
+  projet: z.enum([
+    "fiscalite",
+    "retraite",
+    "credit-immobilier",
+    "placement-financier",
+    "assurance-emprunteur",
+    "prevoyance",
+    "autre",
+  ]),
   precision: z.string().trim().max(600).optional(),
+  website: z.string().max(0).optional(),
+}).superRefine((data, ctx) => {
+  if (data.projet === "autre" && !data.precision) {
+    ctx.addIssue({ code: "custom", path: ["precision"], message: "Merci de préciser votre demande." });
+  }
 });
+
+const projectLabels: Record<z.infer<typeof contactSchema>["projet"], string> = {
+  fiscalite: "Optimiser ma fiscalité",
+  retraite: "Préparer ma retraite",
+  "credit-immobilier": "Financer mon crédit immobilier",
+  "placement-financier": "Faire fructifier mon placement financier",
+  "assurance-emprunteur": "Renégocier mon assurance emprunteur",
+  prevoyance: "Protéger mes proches avec une solution de prévoyance",
+  autre: "Autre demande",
+};
 
 const escapeHtml = (value: string) =>
   value
@@ -18,7 +41,7 @@ const escapeHtml = (value: string) =>
     .replace(/'/g, "&#39;");
 
 export const sendContactRequest = createServerFn({ method: "POST" })
-  .inputValidator((data: unknown) => contactSchema.parse(data))
+  .validator((data: unknown) => contactSchema.parse(data))
   .handler(async ({ data }) => {
     const lovableApiKey = process.env["LOVABLE_API_KEY"];
     const resendApiKey = process.env["RESEND_API_KEY"];
@@ -30,7 +53,7 @@ export const sendContactRequest = createServerFn({ method: "POST" })
       ["Nom et prénom", data.nom],
       ["Téléphone", data.telephone],
       ["Email", data.email],
-      ["Projet principal", data.projet],
+      ["Projet principal", projectLabels[data.projet]],
       ["Précisions", data.precision?.length ? data.precision : "—"],
     ];
 
@@ -63,11 +86,19 @@ export const sendContactRequest = createServerFn({ method: "POST" })
       }),
     });
 
+    const responseBody = await response.text();
     if (!response.ok) {
-      const errorBody = await response.text();
-      console.error(`Resend request failed [${response.status}]: ${errorBody}`);
-      throw new Error(`Resend request failed [${response.status}]: ${errorBody}`);
+      console.error(`Resend request failed [${response.status}]: ${responseBody}`);
+      throw new Error(`Resend request failed [${response.status}]`);
     }
 
-    return { ok: true } as const;
+    let emailId: string | undefined;
+    try {
+      const parsed = JSON.parse(responseBody) as { id?: string };
+      emailId = parsed.id;
+    } catch {
+      emailId = undefined;
+    }
+
+    return { ok: true, emailId } as const;
   });
