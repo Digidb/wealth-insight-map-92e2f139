@@ -144,7 +144,7 @@ const formSchema = z
     precision: z.string().trim().max(600, "Message trop long (600 caractères maximum).").optional(),
   })
   .superRefine((data, ctx) => {
-    if (data.projet === "autre" && (!data.precision || data.precision.length < 5)) {
+    if (data.projet === "autre" && !data.precision?.trim()) {
       ctx.addIssue({
         code: "custom",
         path: ["precision"],
@@ -152,6 +152,7 @@ const formSchema = z
       });
     }
   });
+
 
 
 function Header() {
