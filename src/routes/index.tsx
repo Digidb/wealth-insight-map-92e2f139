@@ -144,7 +144,7 @@ const formSchema = z
     precision: z.string().trim().max(600, "Message trop long (600 caractères maximum).").optional(),
   })
   .superRefine((data, ctx) => {
-    if (data.projet === "autre" && (!data.precision || data.precision.length < 5)) {
+    if (data.projet === "autre" && !data.precision?.trim()) {
       ctx.addIssue({
         code: "custom",
         path: ["precision"],
@@ -152,6 +152,7 @@ const formSchema = z
       });
     }
   });
+
 
 
 function Header() {
@@ -441,15 +442,24 @@ function Audit() {
     setSendError("");
     setSending(true);
     try {
-      await submitContact({ data: result.data });
+      try {
+        await submitContact({ data: result.data });
+      } catch (firstError) {
+        console.error(firstError);
+        await new Promise((resolve) => setTimeout(resolve, 1200));
+        await submitContact({ data: result.data });
+      }
       setSent(true);
     } catch (error) {
       console.error(error);
-      setSendError("L'envoi a échoué. Merci de réessayer ou de me contacter par téléphone.");
+      setSendError(
+        "L'envoi a échoué. Merci de réessayer dans quelques instants, ou de m'écrire directement à l.ayoub@predictis-mia.com.",
+      );
     } finally {
       setSending(false);
     }
   }
+
 
 
   const fieldClass =
