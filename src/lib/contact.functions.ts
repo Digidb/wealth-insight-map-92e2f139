@@ -1,26 +1,32 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 
-export const contactSchema = z.object({
-  nom: z.string().trim().min(2).max(100),
-  telephone: z.string().trim().min(8).max(25),
-  email: z.string().trim().email().max(255),
-  projet: z.enum([
-    "fiscalite",
-    "retraite",
-    "credit-immobilier",
-    "placement-financier",
-    "assurance-emprunteur",
-    "prevoyance",
-    "autre",
-  ]),
-  precision: z.string().trim().max(600).optional(),
-  website: z.string().max(0).optional(),
-}).superRefine((data, ctx) => {
-  if (data.projet === "autre" && !data.precision) {
-    ctx.addIssue({ code: "custom", path: ["precision"], message: "Merci de préciser votre demande." });
-  }
-});
+export const contactSchema = z
+  .object({
+    nom: z.string().trim().min(2).max(100),
+    telephone: z.string().trim().min(8).max(25),
+    email: z.string().trim().email().max(255),
+    projet: z.enum([
+      "fiscalite",
+      "retraite",
+      "credit-immobilier",
+      "placement-financier",
+      "assurance-emprunteur",
+      "prevoyance",
+      "autre",
+    ]),
+    precision: z.string().trim().max(600).optional(),
+    website: z.string().max(0).optional(),
+  })
+  .superRefine((data, ctx) => {
+    if (data.projet === "autre" && !data.precision) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["precision"],
+        message: "Merci de préciser votre demande.",
+      });
+    }
+  });
 
 const projectLabels: Record<z.infer<typeof contactSchema>["projet"], string> = {
   fiscalite: "Optimiser ma fiscalité",

@@ -99,7 +99,6 @@
   }
 }
 
-
 @utility surface-navy {
   background-image: var(--gradient-navy);
   color: oklch(0.985 0.005 91);

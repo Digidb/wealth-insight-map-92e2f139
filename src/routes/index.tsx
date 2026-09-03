@@ -155,18 +155,15 @@ const formSchema = z
     }
   });
 
-
-
 function Header() {
   return (
     <header className="absolute inset-x-0 top-0 z-20">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-6">
-        <a href="#" className="inline-flex items-center rounded-2xl bg-card px-5 py-2.5 shadow-[var(--shadow-card)]">
-          <img
-            src={logo}
-            alt="Logo Lamyae Ayoub — Gestion de patrimoine"
-            className="h-12 w-auto"
-          />
+        <a
+          href="#"
+          className="inline-flex items-center rounded-2xl bg-card px-5 py-2.5 shadow-[var(--shadow-card)]"
+        >
+          <img src={logo} alt="Logo Lamyae Ayoub — Gestion de patrimoine" className="h-12 w-auto" />
         </a>
         <a
           href={CTA_HREF}
@@ -228,25 +225,23 @@ function Hero() {
         <Header />
         <div className="relative mx-auto max-w-7xl px-6 pt-32 pb-10 md:pt-40 md:pb-14">
           <div className="grid items-end gap-8 lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="max-w-2xl pb-6 text-primary-foreground">
-            <p className="eyebrow text-gold">
-              Particuliers, Indépendants et Chefs d'entreprise
-            </p>
-            <h1 className="mt-5 text-4xl leading-[1.08] sm:text-6xl md:text-7xl">
-              Votre patrimoine mérite une vision à 360°
-            </h1>
-            <p className="mt-6 max-w-2xl text-base leading-relaxed opacity-85 sm:text-lg">
-              Je vous accompagne dans l'optimisation, la structuration et la protection de vos
-              projets de vie, avec des stratégies sur-mesure.
-            </p>
-            <a
-              href={CTA_HREF}
-              className="mt-9 inline-flex items-center gap-3 rounded-full bg-gold px-7 py-4 text-sm font-bold text-primary-foreground transition-transform hover:-translate-y-0.5 sm:text-base"
-            >
-              <CalendarDays className="h-5 w-5" />
-              Demander mon audit patrimonial offert
-            </a>
-          </div>
+            <div className="max-w-2xl pb-6 text-primary-foreground">
+              <p className="eyebrow text-gold">Particuliers, Indépendants et Chefs d'entreprise</p>
+              <h1 className="mt-5 text-4xl leading-[1.08] sm:text-6xl md:text-7xl">
+                Votre patrimoine mérite une vision à 360°
+              </h1>
+              <p className="mt-6 max-w-2xl text-base leading-relaxed opacity-85 sm:text-lg">
+                Je vous accompagne dans l'optimisation, la structuration et la protection de vos
+                projets de vie, avec des stratégies sur-mesure.
+              </p>
+              <a
+                href={CTA_HREF}
+                className="mt-9 inline-flex items-center gap-3 rounded-full bg-gold px-7 py-4 text-sm font-bold text-primary-foreground transition-transform hover:-translate-y-0.5 sm:text-base"
+              >
+                <CalendarDays className="h-5 w-5" />
+                Demander mon audit patrimonial offert
+              </a>
+            </div>
             <div className="relative hidden justify-center lg:flex">
               <div className="absolute bottom-0 h-[78%] w-[78%] rounded-t-full bg-gold/25 blur-[2px]" />
               <img
@@ -365,8 +360,8 @@ function APropos() {
           </h2>
           <p className="mt-6 text-base leading-relaxed text-muted-foreground">
             « Au cours de mon expérience, j'ai accompagné une clientèle diversifiée pour sécuriser
-            et développer leur patrimoine. Mes maîtres-mots : Confiance, Transparence et
-            Pédagogie. »
+            et développer leur patrimoine. Mes maîtres-mots : Confiance, Transparence et Pédagogie.
+            »
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
             {["Confiance", "Transparence", "Pédagogie"].map((v) => (
@@ -381,9 +376,10 @@ function APropos() {
           <div className="card-soft mt-8 flex gap-4 p-6">
             <BadgeCheck className="mt-0.5 h-6 w-6 shrink-0 text-navy-soft" />
             <p className="text-sm leading-relaxed text-muted-foreground">
-              En tant que partenaire de l'entité <strong className="text-navy-deep">Predictis</strong>{" "}
-              (Groupe Premium), le 1er courtier en assurance vie-épargne en France, je vous garantis
-              un accès aux solutions les plus performantes du marché.
+              En tant que partenaire de l'entité{" "}
+              <strong className="text-navy-deep">Predictis</strong> (Groupe Premium), le 1er
+              courtier en assurance vie-épargne en France, je vous garantis un accès aux solutions
+              les plus performantes du marché.
             </p>
           </div>
         </Reveal>
@@ -457,8 +453,6 @@ function Audit() {
     }
   }
 
-
-
   const fieldClass =
     "mt-2 w-full rounded-xl border border-input bg-card px-4 py-3 text-sm outline-none transition-colors focus:border-navy-soft focus:ring-2 focus:ring-ring/30";
 
@@ -480,7 +474,9 @@ function Audit() {
               className="card-soft flex items-center gap-4 p-5 transition-transform hover:-translate-y-0.5"
             >
               <Mail className="h-5 w-5 text-navy-soft" />
-              <span className="text-sm font-semibold text-navy-deep">l.ayoub@predictis-mia.com</span>
+              <span className="text-sm font-semibold text-navy-deep">
+                l.ayoub@predictis-mia.com
+              </span>
             </a>
             <div className="card-soft flex items-center gap-4 p-5">
               <Phone className="h-5 w-5 text-navy-soft" />
@@ -561,11 +557,11 @@ function Audit() {
                   name="projet"
                   defaultValue=""
                   className={fieldClass}
-                    onChange={(event) => {
-                      setProjet(event.target.value);
-                      setErrors((current) => ({ ...current, projet: "", precision: "" }));
-                      if (event.target.value !== "autre") setPrecision("");
-                    }}
+                  onChange={(event) => {
+                    setProjet(event.target.value);
+                    setErrors((current) => ({ ...current, projet: "", precision: "" }));
+                    if (event.target.value !== "autre") setPrecision("");
+                  }}
                 >
                   <option value="" disabled>
                     Sélectionnez…
@@ -573,11 +569,13 @@ function Audit() {
                   <option value="fiscalite">Optimiser ma fiscalité</option>
                   <option value="retraite">Préparer ma retraite</option>
                   <option value="credit-immobilier">Financer mon crédit immobilier</option>
-                  <option value="placement-financier">Faire fructifier mon placement financier</option>
-                  <option value="assurance-emprunteur">
-                    Renégocier mon assurance emprunteur
+                  <option value="placement-financier">
+                    Faire fructifier mon placement financier
                   </option>
-                  <option value="prevoyance">Protéger mes proches avec une solution de prévoyance</option>
+                  <option value="assurance-emprunteur">Renégocier mon assurance emprunteur</option>
+                  <option value="prevoyance">
+                    Protéger mes proches avec une solution de prévoyance
+                  </option>
                   <option value="autre">Autre demande</option>
                 </select>
                 {errors["projet"] && (
@@ -599,7 +597,9 @@ function Audit() {
                     placeholder="Décrivez votre besoin en quelques mots… (3 paragraphes maximum)"
                     className={fieldClass}
                   />
-                  <p className="mt-1 text-right text-xs text-navy-deep/50">{precision.length}/600</p>
+                  <p className="mt-1 text-right text-xs text-navy-deep/50">
+                    {precision.length}/600
+                  </p>
                   {errors["precision"] && (
                     <p className="mt-2 text-xs text-destructive">{errors["precision"]}</p>
                   )}
@@ -613,7 +613,11 @@ function Audit() {
               >
                 {sending ? "Envoi en cours…" : "Obtenir mon audit gratuit"}
               </Button>
-              {sendError && <p role="alert" className="text-center text-xs text-destructive">{sendError}</p>}
+              {sendError && (
+                <p role="alert" className="text-center text-xs text-destructive">
+                  {sendError}
+                </p>
+              )}
 
               <p className="text-center text-xs text-muted-foreground">
                 Vos données sont utilisées uniquement pour vous recontacter (RGPD).

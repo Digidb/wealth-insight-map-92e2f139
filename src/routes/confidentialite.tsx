@@ -14,7 +14,8 @@ export const Route = createFileRoute("/confidentialite")({
       { property: "og:title", content: "Politique de confidentialité — Lamyae Ayoub" },
       {
         property: "og:description",
-        content: "Comment vos données personnelles sont collectées, protégées et comment exercer vos droits.",
+        content:
+          "Comment vos données personnelles sont collectées, protégées et comment exercer vos droits.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
@@ -72,7 +73,9 @@ function Confidentialite() {
           la qualité de responsables de traitement selon le traitement considéré ;
         </li>
         <li>Des salariés ;</li>
-        <li>Des mandataires d'intermédiaires en assurance indépendants partenaires de PREDICTIS ;</li>
+        <li>
+          Des mandataires d'intermédiaires en assurance indépendants partenaires de PREDICTIS ;
+        </li>
         <li>
           Des autorités administratives et judiciaires pour satisfaire aux obligations légales et
           réglementaires ;
@@ -85,8 +88,9 @@ function Confidentialite() {
         Lorsque le traitement de vos données implique un transfert hors de l'Union Européenne, ces
         transferts sont effectués en contrepartie de garanties appropriées en matière de
         confidentialité et sécurité des données, en toute conformité avec la règlementation
-        applicable. Les transferts hors de l'Union Européenne reposent sur des clauses contractuelles
-        standards, conformément aux modèles de clause validés par la Commission Européenne.
+        applicable. Les transferts hors de l'Union Européenne reposent sur des clauses
+        contractuelles standards, conformément aux modèles de clause validés par la Commission
+        Européenne.
       </p>
 
       <h2>Article 6 – De quels droits disposez-vous sur vos données personnelles ?</h2>
@@ -118,10 +122,10 @@ function Confidentialite() {
       <h3>Droit à la portabilité</h3>
       <p>
         Vous avez le droit de récupérer et de réutiliser certaines données personnelles. Ce droit
-        s'applique uniquement aux données personnelles que vous nous avez fournies, que nous traitons
-        avec votre consentement et à des fins d'exécution du contrat et qui sont traitées par des
-        moyens automatisés. Le cas échéant, nous vous fournirons une copie de vos données dans un
-        format structuré, couramment utilisé et lisible par une machine (lorsque cela est
+        s'applique uniquement aux données personnelles que vous nous avez fournies, que nous
+        traitons avec votre consentement et à des fins d'exécution du contrat et qui sont traitées
+        par des moyens automatisés. Le cas échéant, nous vous fournirons une copie de vos données
+        dans un format structuré, couramment utilisé et lisible par une machine (lorsque cela est
         techniquement possible). Nous pourrons également transmettre vos données directement à un
         autre responsable de traitement.
       </p>
@@ -130,8 +134,8 @@ function Confidentialite() {
         Vous avez le droit de vous opposer à certains types de traitements, pour des raisons liées à
         votre situation particulière, à tout moment, dans la mesure où ce traitement a eu lieu aux
         fins d'intérêts légitimes poursuivis par PREDICTIS. Nous serons autorisés à continuer à
-        traiter vos données personnelles si nous pouvons démontrer que le traitement est justifié par
-        des libertés ou si nous en avons besoin pour l'établissement, l'exercice ou la défense
+        traiter vos données personnelles si nous pouvons démontrer que le traitement est justifié
+        par des libertés ou si nous en avons besoin pour l'établissement, l'exercice ou la défense
         d'actions en justice.
       </p>
       <h3>Droit de retrait du consentement</h3>
@@ -158,15 +162,16 @@ function Confidentialite() {
         ). Les droits indiqués ci-dessus s'exercent dans le cadre légal et réglementaire dans la
         limite de nos obligations contractuelles vis-à-vis de vous ou des assureurs avec lesquels
         nous travaillons. Lors d'une demande d'exercice de droits, un titre d'identité peut être
-        demandé, notamment afin de préserver la sécurité du traitement faisant l'objet de la demande.
+        demandé, notamment afin de préserver la sécurité du traitement faisant l'objet de la
+        demande.
       </p>
 
       <h2>Article 7 – Comment sont protégées vos données à caractère personnel ?</h2>
       <p>
-        Nous mettons en place les mesures techniques et organisationnelles appropriées pour éviter la
-        perte, la mauvaise utilisation, l'altération et la suppression de vos données personnelles.
-        Ces mesures sont adaptées selon le niveau de sensibilité des données traitées et le niveau de
-        risque que présente le traitement ou sa mise en œuvre.
+        Nous mettons en place les mesures techniques et organisationnelles appropriées pour éviter
+        la perte, la mauvaise utilisation, l'altération et la suppression de vos données
+        personnelles. Ces mesures sont adaptées selon le niveau de sensibilité des données traitées
+        et le niveau de risque que présente le traitement ou sa mise en œuvre.
       </p>
       <p>
         Si une atteinte à la sécurité des données vous concernant se produit, nous vous en
@@ -183,16 +188,18 @@ function Confidentialite() {
       <p>
         Une réponse vous sera adressée, suivant la complexité de votre demande, dans les délais
         prescrits par l'article 12.3 du RGPD. Ainsi, PREDICTIS dispose d'un mois pour répondre à
-        votre demande, et ce délai peut être prorogé de deux mois, compte tenu de la complexité et du
-        nombre de demandes.
+        votre demande, et ce délai peut être prorogé de deux mois, compte tenu de la complexité et
+        du nombre de demandes.
       </p>
       <p>
-        Lorsque PREDICTIS traite vos données en qualité de sous-traitant (par exemple d'une compagnie
-        d'assurance), votre demande d'exercice des droits peut être transmise à cette société.
+        Lorsque PREDICTIS traite vos données en qualité de sous-traitant (par exemple d'une
+        compagnie d'assurance), votre demande d'exercice des droits peut être transmise à cette
+        société.
       </p>
       <p>
-        Pour toute réclamation à la Commission Nationale Informatique et Libertés (CNIL), vous pouvez
-        écrire à l'adresse suivante : CNIL, 3 place de Fontenoy, TSA 80715, 75334 Paris cedex 07.
+        Pour toute réclamation à la Commission Nationale Informatique et Libertés (CNIL), vous
+        pouvez écrire à l'adresse suivante : CNIL, 3 place de Fontenoy, TSA 80715, 75334 Paris cedex
+        07.
       </p>
     </LegalLayout>
   );
