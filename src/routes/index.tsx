@@ -31,6 +31,7 @@ import portrait from "@/assets/lamyae-bureau.png";
 import portraitCutout from "@/assets/lamyae-cutout.png";
 import heroImage from "@/assets/hero-paris.jpg";
 import { Reveal } from "@/components/site/Reveal";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -142,6 +143,7 @@ const formSchema = z
     email: z.string().trim().email("Adresse email invalide.").max(255),
     projet: z.string().min(1, "Merci de sélectionner votre projet principal."),
     precision: z.string().trim().max(600, "Message trop long (600 caractères maximum).").optional(),
+    website: z.string().max(0).optional(),
   })
   .superRefine((data, ctx) => {
     if (data.projet === "autre" && !data.precision?.trim()) {
@@ -442,13 +444,8 @@ function Audit() {
     setSendError("");
     setSending(true);
     try {
-      try {
-        await submitContact({ data: result.data });
-      } catch (firstError) {
-        console.error(firstError);
-        await new Promise((resolve) => setTimeout(resolve, 1200));
-        await submitContact({ data: result.data });
-      }
+      const response = await submitContact({ data: result.data });
+      if (!response.ok) throw new Error("L'envoi n'a pas été confirmé.");
       setSent(true);
     } catch (error) {
       console.error(error);
@@ -508,6 +505,14 @@ function Audit() {
             </div>
           ) : (
             <form onSubmit={onSubmit} noValidate className="space-y-5">
+              <input
+                type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                aria-hidden="true"
+                className="hidden"
+              />
               <div>
                 <label htmlFor="nom" className="text-sm font-semibold text-navy-deep">
                   Nom / Prénom
@@ -556,7 +561,11 @@ function Audit() {
                   name="projet"
                   defaultValue=""
                   className={fieldClass}
-                  onChange={(e) => setProjet(e.target.value)}
+                    onChange={(event) => {
+                      setProjet(event.target.value);
+                      setErrors((current) => ({ ...current, projet: "", precision: "" }));
+                      if (event.target.value !== "autre") setPrecision("");
+                    }}
                 >
                   <option value="" disabled>
                     Sélectionnez…
@@ -568,6 +577,7 @@ function Audit() {
                   <option value="assurance-emprunteur">
                     Renégocier mon assurance emprunteur
                   </option>
+                  <option value="prevoyance">Protéger mes proches avec une solution de prévoyance</option>
                   <option value="autre">Autre demande</option>
                 </select>
                 {errors["projet"] && (
@@ -596,14 +606,14 @@ function Audit() {
                 </div>
               )}
 
-              <button
+              <Button
                 type="submit"
                 disabled={sending}
-                className="w-full rounded-full surface-navy px-6 py-4 text-sm font-bold transition-transform hover:-translate-y-0.5 disabled:opacity-60"
+                className="h-auto w-full rounded-full surface-navy px-6 py-4 text-sm font-bold transition-transform hover:-translate-y-0.5 disabled:opacity-60"
               >
                 {sending ? "Envoi en cours…" : "Obtenir mon audit gratuit"}
-              </button>
-              {sendError && <p className="text-center text-xs text-destructive">{sendError}</p>}
+              </Button>
+              {sendError && <p role="alert" className="text-center text-xs text-destructive">{sendError}</p>}
 
               <p className="text-center text-xs text-muted-foreground">
                 Vos données sont utilisées uniquement pour vous recontacter (RGPD).
