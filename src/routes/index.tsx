@@ -143,6 +143,7 @@ const formSchema = z
     email: z.string().trim().email("Adresse email invalide.").max(255),
     projet: z.string().min(1, "Merci de sélectionner votre projet principal."),
     precision: z.string().trim().max(600, "Message trop long (600 caractères maximum).").optional(),
+    slot: z.string().min(1, "Merci de choisir une date et une heure."),
     website: z.string().max(0).optional(),
   })
   .superRefine((data, ctx) => {
@@ -154,6 +155,30 @@ const formSchema = z
       });
     }
   });
+
+const PARIS = "Europe/Paris";
+
+const timeFormatter = new Intl.DateTimeFormat("fr-FR", {
+  timeZone: PARIS,
+  hour: "2-digit",
+  minute: "2-digit",
+});
+
+const longDateFormatter = new Intl.DateTimeFormat("fr-FR", {
+  timeZone: PARIS,
+  weekday: "long",
+  day: "numeric",
+  month: "long",
+});
+
+const monthFormatter = new Intl.DateTimeFormat("fr-FR", { month: "long", year: "numeric" });
+
+const weekDayLabels = ["L", "M", "M", "J", "V", "S", "D"];
+
+function toDayKey(date: Date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
 
 
 
@@ -425,12 +450,46 @@ function Audit() {
   const [precision, setPrecision] = useState("");
   const [sending, setSending] = useState(false);
   const [sendError, setSendError] = useState("");
-  const submitContact = useServerFn(sendContactRequest);
+  const [loadingSlots, setLoadingSlots] = useState(true);
+  const [availability, setAvailability] = useState<Record<string, string[]>>({});
+  const [selectedDay, setSelectedDay] = useState("");
+  const [selectedSlot, setSelectedSlot] = useState("");
+  const [monthCursor, setMonthCursor] = useState(() => {
+    const now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), 1);
+  });
+  const [confirmed, setConfirmed] = useState("");
+
+  const submitBooking = useServerFn(bookAppointment);
+  const loadAvailability = useServerFn(getAvailability);
+
+  const refreshAvailability = useCallback(async () => {
+    setLoadingSlots(true);
+    try {
+      const result = await loadAvailability();
+      const map: Record<string, string[]> = {};
+      for (const day of result.days) map[day.date] = day.slots;
+      setAvailability(map);
+      const firstDay = result.days[0]?.date ?? "";
+      setSelectedDay((current) => (current && map[current] ? current : firstDay));
+    } catch (error) {
+      console.error(error);
+      setSendError(
+        "L'agenda est momentanément indisponible. Merci de m'écrire à l.ayoub@predictis-mia.com.",
+      );
+    } finally {
+      setLoadingSlots(false);
+    }
+  }, [loadAvailability]);
+
+  useEffect(() => {
+    void refreshAvailability();
+  }, [refreshAvailability]);
 
   async function onSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const data = Object.fromEntries(new FormData(event.currentTarget));
-    const result = formSchema.safeParse(data);
+    const result = formSchema.safeParse({ ...data, slot: selectedSlot });
     if (!result.success) {
       const next: Record<string, string> = {};
       for (const issue of result.error.issues) {
@@ -444,37 +503,60 @@ function Audit() {
     setSendError("");
     setSending(true);
     try {
-      const response = await submitContact({ data: result.data });
-      if (!response.ok) throw new Error("L'envoi n'a pas été confirmé.");
+      const response = await submitBooking({ data: { ...result.data, slot: selectedSlot } });
+      if (!response.ok) {
+        setSendError("Ce créneau vient d'être réservé. Merci d'en choisir un autre.");
+        setSelectedSlot("");
+        await refreshAvailability();
+        return;
+      }
+      setConfirmed(selectedSlot);
       setSent(true);
     } catch (error) {
       console.error(error);
       setSendError(
-        "L'envoi a échoué. Merci de réessayer dans quelques instants, ou de m'écrire directement à l.ayoub@predictis-mia.com.",
+        "La réservation a échoué. Merci de réessayer dans quelques instants, ou de m'écrire à l.ayoub@predictis-mia.com.",
       );
     } finally {
       setSending(false);
     }
   }
 
-
-
   const fieldClass =
     "mt-2 w-full rounded-xl border border-input bg-card px-4 py-3 text-sm outline-none transition-colors focus:border-navy-soft focus:ring-2 focus:ring-ring/30";
 
+  const monthStart = new Date(monthCursor.getFullYear(), monthCursor.getMonth(), 1);
+  const daysInMonth = new Date(monthCursor.getFullYear(), monthCursor.getMonth() + 1, 0).getDate();
+  const leadingBlanks = (monthStart.getDay() + 6) % 7;
+  const monthCells: Array<{ key: string; day: number } | null> = [
+    ...Array.from({ length: leadingBlanks }, () => null),
+    ...Array.from({ length: daysInMonth }, (_, index) => {
+      const date = new Date(monthCursor.getFullYear(), monthCursor.getMonth(), index + 1);
+      return { key: toDayKey(date), day: index + 1 };
+    }),
+  ];
+
+  const daySlots = selectedDay ? (availability[selectedDay] ?? []) : [];
+
   return (
     <section id="audit" className="mx-auto max-w-7xl scroll-mt-8 px-6 pb-24">
-      <div className="grid gap-10 lg:grid-cols-[1fr_1.05fr] lg:items-start">
+      <div className="grid gap-10 lg:grid-cols-[1fr_1.15fr] lg:items-start">
         <div>
           <span className="eyebrow text-muted-foreground">Prendre rendez-vous</span>
           <h2 className="mt-5 text-3xl text-navy-deep sm:text-5xl">
-            Prêt(e) à faire le point sur votre situation ?
+            Réservez votre premier échange
           </h2>
           <p className="mt-6 text-base leading-relaxed text-muted-foreground">
-            Remplissez ce formulaire ou prenez rendez-vous directement dans mon agenda. L'audit est
-            100 % personnalisé et sans engagement.
+            Choisissez directement la date et l'heure qui vous conviennent dans mon agenda. Un
+            échange de 30 minutes, offert et sans engagement.
           </p>
           <div className="mt-8 space-y-3">
+            <div className="card-soft flex items-center gap-4 p-5">
+              <CalendarDays className="h-5 w-5 text-navy-soft" />
+              <span className="text-sm text-muted-foreground">
+                Créneaux de 30 min — du lundi au vendredi 9h–19h et le samedi matin.
+              </span>
+            </div>
             <a
               href="mailto:l.ayoub@predictis-mia.com"
               className="card-soft flex items-center gap-4 p-5 transition-transform hover:-translate-y-0.5"
@@ -485,7 +567,7 @@ function Audit() {
             <div className="card-soft flex items-center gap-4 p-5">
               <Phone className="h-5 w-5 text-navy-soft" />
               <span className="text-sm text-muted-foreground">
-                Réponse sous 1 jour ouvré, par téléphone ou visio.
+                Rendez-vous par téléphone ou en visio, selon votre préférence.
               </span>
             </div>
           </div>
@@ -497,14 +579,15 @@ function Audit() {
               <span className="mx-auto grid h-14 w-14 place-items-center rounded-full surface-navy">
                 <BadgeCheck className="h-7 w-7" />
               </span>
-              <h3 className="mt-6 text-2xl text-navy-deep">Demande enregistrée</h3>
+              <h3 className="mt-6 text-2xl text-navy-deep">Rendez-vous confirmé</h3>
               <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                Merci ! Je vous recontacte très rapidement pour convenir de votre premier échange de
-                15 minutes.
+                {confirmed
+                  ? `Nous nous parlons ${longDateFormatter.format(new Date(confirmed))} à ${timeFormatter.format(new Date(confirmed))}. Vous recevez l'invitation par email.`
+                  : "Vous recevez l'invitation par email."}
               </p>
             </div>
           ) : (
-            <form onSubmit={onSubmit} noValidate className="space-y-5">
+            <form onSubmit={onSubmit} noValidate className="space-y-6">
               <input
                 type="text"
                 name="website"
@@ -513,6 +596,118 @@ function Audit() {
                 aria-hidden="true"
                 className="hidden"
               />
+
+              <div>
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold text-navy-deep">
+                    Choisissez votre créneau
+                  </span>
+                  <div className="flex items-center gap-1">
+                    <button
+                      type="button"
+                      aria-label="Mois précédent"
+                      onClick={() =>
+                        setMonthCursor(
+                          (current) => new Date(current.getFullYear(), current.getMonth() - 1, 1),
+                        )
+                      }
+                      className="grid h-8 w-8 place-items-center rounded-full border border-input text-navy-deep transition-colors hover:bg-secondary"
+                    >
+                      <ChevronLeft className="h-4 w-4" />
+                    </button>
+                    <span className="min-w-32 text-center text-sm font-semibold capitalize text-navy-deep">
+                      {monthFormatter.format(monthCursor)}
+                    </span>
+                    <button
+                      type="button"
+                      aria-label="Mois suivant"
+                      onClick={() =>
+                        setMonthCursor(
+                          (current) => new Date(current.getFullYear(), current.getMonth() + 1, 1),
+                        )
+                      }
+                      className="grid h-8 w-8 place-items-center rounded-full border border-input text-navy-deep transition-colors hover:bg-secondary"
+                    >
+                      <ChevronRight className="h-4 w-4" />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="mt-4 grid grid-cols-7 gap-1 text-center text-xs font-semibold text-muted-foreground">
+                  {weekDayLabels.map((label, index) => (
+                    <span key={`${label}-${index}`}>{label}</span>
+                  ))}
+                </div>
+                <div className="mt-1 grid grid-cols-7 gap-1">
+                  {monthCells.map((cell, index) => {
+                    if (!cell) return <span key={`blank-${index}`} />;
+                    const hasSlots = (availability[cell.key] ?? []).length > 0;
+                    const isSelected = selectedDay === cell.key;
+                    return (
+                      <button
+                        key={cell.key}
+                        type="button"
+                        disabled={!hasSlots}
+                        onClick={() => {
+                          setSelectedDay(cell.key);
+                          setSelectedSlot("");
+                          setErrors((current) => ({ ...current, slot: "" }));
+                        }}
+                        className={`h-10 rounded-xl text-sm transition-colors ${
+                          isSelected
+                            ? "surface-navy font-bold"
+                            : hasSlots
+                              ? "bg-secondary font-semibold text-navy-deep hover:bg-secondary/70"
+                              : "text-muted-foreground/40"
+                        }`}
+                      >
+                        {cell.day}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="mt-5">
+                  {loadingSlots ? (
+                    <p className="text-sm text-muted-foreground">Chargement de mon agenda…</p>
+                  ) : daySlots.length === 0 ? (
+                    <p className="text-sm text-muted-foreground">
+                      Sélectionnez un jour disponible (en surbrillance) pour voir les horaires.
+                    </p>
+                  ) : (
+                    <>
+                      <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                        {longDateFormatter.format(new Date(daySlots[0] ?? ""))} — heure de Paris
+                      </p>
+                      <div className="mt-3 grid max-h-44 grid-cols-3 gap-2 overflow-y-auto pr-1 sm:grid-cols-4">
+                        {daySlots.map((slot) => (
+                          <button
+                            key={slot}
+                            type="button"
+                            onClick={() => {
+                              setSelectedSlot(slot);
+                              setErrors((current) => ({ ...current, slot: "" }));
+                            }}
+                            className={`rounded-xl border px-2 py-2 text-sm font-semibold transition-colors ${
+                              selectedSlot === slot
+                                ? "surface-navy border-transparent"
+                                : "border-input text-navy-deep hover:bg-secondary"
+                            }`}
+                          >
+                            {timeFormatter.format(new Date(slot))}
+                          </button>
+                        ))}
+                      </div>
+                    </>
+                  )}
+                  {errors["slot"] && (
+                    <p className="mt-2 text-xs text-destructive">{errors["slot"]}</p>
+                  )}
+                </div>
+              </div>
+
+              <div className="h-px bg-border" />
+
               <div>
                 <label htmlFor="nom" className="text-sm font-semibold text-navy-deep">
                   Nom / Prénom
@@ -561,24 +756,20 @@ function Audit() {
                   name="projet"
                   defaultValue=""
                   className={fieldClass}
-                    onChange={(event) => {
-                      setProjet(event.target.value);
-                      setErrors((current) => ({ ...current, projet: "", precision: "" }));
-                      if (event.target.value !== "autre") setPrecision("");
-                    }}
+                  onChange={(event) => {
+                    setProjet(event.target.value);
+                    setErrors((current) => ({ ...current, projet: "", precision: "" }));
+                    if (event.target.value !== "autre") setPrecision("");
+                  }}
                 >
                   <option value="" disabled>
                     Sélectionnez…
                   </option>
-                  <option value="fiscalite">Optimiser ma fiscalité</option>
-                  <option value="retraite">Préparer ma retraite</option>
-                  <option value="credit-immobilier">Financer mon crédit immobilier</option>
-                  <option value="placement-financier">Faire fructifier mon placement financier</option>
-                  <option value="assurance-emprunteur">
-                    Renégocier mon assurance emprunteur
-                  </option>
-                  <option value="prevoyance">Protéger mes proches avec une solution de prévoyance</option>
-                  <option value="autre">Autre demande</option>
+                  {projectOptions.map((option) => (
+                    <option key={option.value} value={option.value}>
+                      {option.label}
+                    </option>
+                  ))}
                 </select>
                 {errors["projet"] && (
                   <p className="mt-2 text-xs text-destructive">{errors["projet"]}</p>
@@ -611,12 +802,20 @@ function Audit() {
                 disabled={sending}
                 className="h-auto w-full rounded-full surface-navy px-6 py-4 text-sm font-bold transition-transform hover:-translate-y-0.5 disabled:opacity-60"
               >
-                {sending ? "Envoi en cours…" : "Obtenir mon audit gratuit"}
+                {sending
+                  ? "Réservation en cours…"
+                  : selectedSlot
+                    ? `Confirmer le ${longDateFormatter.format(new Date(selectedSlot))} à ${timeFormatter.format(new Date(selectedSlot))}`
+                    : "Confirmer mon rendez-vous"}
               </Button>
-              {sendError && <p role="alert" className="text-center text-xs text-destructive">{sendError}</p>}
+              {sendError && (
+                <p role="alert" className="text-center text-xs text-destructive">
+                  {sendError}
+                </p>
+              )}
 
               <p className="text-center text-xs text-muted-foreground">
-                Vos données sont utilisées uniquement pour vous recontacter (RGPD).
+                Vos données sont utilisées uniquement pour votre rendez-vous (RGPD).
               </p>
             </form>
           )}
@@ -625,6 +824,7 @@ function Audit() {
     </section>
   );
 }
+
 
 function Footer() {
   return (
