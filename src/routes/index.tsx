@@ -1,8 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { z } from "zod";
-import { sendContactRequest } from "@/lib/contact.functions";
+import { bookAppointment, getAvailability, projectOptions } from "@/lib/booking.functions";
 
 import {
   ArrowUp,
@@ -11,7 +11,10 @@ import {
   Building2,
   CalendarDays,
   ChartLine,
+  ChevronLeft,
+  ChevronRight,
   Landmark,
+
   Mail,
   Palmtree,
   PiggyBank,
